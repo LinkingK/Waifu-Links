@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Waifu Vault</title>
   <style>
     body {
@@ -16,7 +16,33 @@
     h1 {
       color: #ff4ec5;
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 60%;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 15px;
+      background: #ff4ec5;
+      color: #0f0f0f;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #ff8ce0;
     }
     a {
       display: block;
@@ -43,14 +69,45 @@
 <body>
   <h1>🔥 Waifu Vault 🔞</h1>
 
-  <!-- LINKS GO HERE -->
-  <a href="https://exe.io/CoZlh" target="_blank">Clip 1 - Bunny Girl Scene</a>
-  <a href="https://exe.io/clip2" target="_blank">Clip 2 - Shower Surprise</a>
-  <a href="https://exe.io/clip3" target="_blank">Clip 3 - Maid Madness</a>
-  <!-- Just copy and paste more lines like above -->
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search scenes..." />
+    <div>
+      <button onclick="sortLinks('newest')">Newest First</button>
+      <button onclick="sortLinks('oldest')">Oldest First</button>
+    </div>
+  </div>
+
+  <div id="linkContainer">
+    <a href="https://exe.io/CoZlh" target="_blank" id="1">1 - Schoolgirl Futa Pranking Classmate</a>
+    <!-- Add more links here -->
+  </div>
 
   <footer>
     Tap links above for full scenes — updated daily 👀
   </footer>
+
+  <script>
+    const container = document.getElementById("linkContainer");
+    let links = Array.from(container.children);
+
+    function sortLinks(order) {
+      links.sort((a, b) => {
+        const idA = parseInt(a.id);
+        const idB = parseInt(b.id);
+        return order === "newest" ? idB - idA : idA - idB;
+      });
+
+      container.innerHTML = "";
+      links.forEach(link => container.appendChild(link));
+    }
+
+    document.getElementById("searchInput").addEventListener("input", function () {
+      const searchText = this.value.toLowerCase();
+      links.forEach(link => {
+        const text = link.textContent.toLowerCase();
+        link.style.display = text.includes(searchText) ? "block" : "none";
+      });
+    });
+  </script>
 </body>
 </html>
